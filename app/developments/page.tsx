@@ -1,0 +1,97 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+
+const projects = [
+    { id: 1, title: "Premier at Katy", category: "Multi-Family", location: "Houston, TX", image: "/projects/premier-at-katy.jpg", link: "https://premieratkaty.com/" },
+    { id: 2, title: "Premier at Morton Ranch", category: "Multi-Family", location: "Houston, TX", image: "/projects/premier-at-morton-ranch.jpg", link: "https://premieratmortonranch.com/", status: "Under Construction - Opening in Q1 2026" },
+    { id: 3, title: "Regalia Bella Terra", category: "Multi-Family", location: "Houston, TX", image: "/projects/regalia-bella-terra.jpg" },
+];
+
+const categories = ["All", "Multi-Family", "Townhouse", "Mixed-Use"];
+
+export default function Developments() {
+    const [activeCategory, setActiveCategory] = useState("All");
+
+    const filteredProjects = activeCategory === "All"
+        ? projects
+        : projects.filter(project => project.category === activeCategory);
+
+    return (
+        <div className="bg-white min-h-screen">
+            <section className="bg-primary py-20 text-white">
+                <div className="container mx-auto px-6 text-center">
+                    <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">Our Developments</h1>
+                    <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                        Explore our portfolio of exceptional communities.
+                    </p>
+                </div>
+            </section>
+
+            <section className="py-12">
+                <div className="container mx-auto px-6">
+                    {/* Filters */}
+                    <div className="flex flex-wrap justify-center gap-4 mb-12">
+                        {categories.map((category) => (
+                            <button
+                                key={category}
+                                onClick={() => setActiveCategory(category)}
+                                className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${activeCategory === category
+                                    ? "bg-secondary text-white"
+                                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                    }`}
+                            >
+                                {category}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Grid */}
+                    <motion.div
+                        layout
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    >
+                        {filteredProjects.map((project) => (
+                            <motion.div
+                                layout
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                key={project.id}
+                                className="group rounded-lg overflow-hidden shadow-lg bg-white"
+                            >
+                                <div className="h-64 overflow-hidden relative">
+                                    <div
+                                        className="h-full w-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+                                        style={{ backgroundImage: `url('${project.image}')` }}
+                                    ></div>
+                                    {project.status && (
+                                        <div className="absolute top-0 left-0 right-0 bg-secondary/90 text-white text-center py-3 px-4">
+                                            <p className="font-medium text-sm">{project.status}</p>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="p-6">
+                                    <div className="flex justify-between items-start mb-2">
+                                        <h3 className="text-xl font-serif font-bold text-primary">{project.title}</h3>
+                                        <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">{project.category}</span>
+                                    </div>
+                                    <p className="text-gray-500 text-sm mb-4">{project.location}</p>
+                                    <a
+                                        href={project.link || "#"}
+                                        target={project.link ? "_blank" : "_self"}
+                                        rel="noopener noreferrer"
+                                        className="text-secondary font-medium text-sm hover:text-primary transition-colors inline-block"
+                                    >
+                                        View Project Details
+                                    </a>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </div>
+            </section>
+        </div>
+    );
+}

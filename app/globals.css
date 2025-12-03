@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+:root {
+  /* Minimalist Luxury Palette */
+  --background: #f9f9f9; /* Off-white / Cream */
+  --foreground: #1a1a1a; /* Deep Charcoal / Black */
+  --primary: #1a1a1a;
+  --secondary: #c5a059; /* Gold / Bronze accent */
+  --muted: #6b7280;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
