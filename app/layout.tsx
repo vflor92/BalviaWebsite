@@ -1,6 +1,11 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/lib/auth-context";
+import { usePathname } from "next/navigation";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,13 +19,26 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Balvia Properties",
-  description: "Multifamily Developer and Operator",
-};
+function LayoutContent({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isInvestorPortal = pathname?.startsWith('/investors') && pathname !== '/investors';
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+  return (
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+      <head>
+        <title>Balvia Properties</title>
+        <meta name="description" content="Multifamily Developer and Operator" />
+      </head>
+      <body className="antialiased bg-background text-foreground font-sans flex flex-col min-h-screen">
+        {!isInvestorPortal && <Navbar />}
+        <main className={!isInvestorPortal ? "flex-grow pt-20" : "flex-grow"}>
+          {children}
+        </main>
+        {!isInvestorPortal && <Footer />}
+      </body>
+    </html>
+  );
+}
 
 export default function RootLayout({
   children,
@@ -28,14 +46,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="antialiased bg-background text-foreground font-sans flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow pt-20">
-          {children}
-        </main>
-        <Footer />
-      </body>
-    </html>
+    <AuthProvider>
+      <LayoutContent>{children}</LayoutContent>
+    </AuthProvider>
   );
 }
