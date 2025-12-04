@@ -27,7 +27,7 @@ export default function LinkedInFeed() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* Post 1 (Newest) */}
                     <motion.a
-                        href="https://www.linkedin.com/feed/update/urn:li:activity:7269042758598799360/"
+                        href="https://www.linkedin.com/company/balvia-properties/"
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ y: -5 }}
@@ -36,7 +36,7 @@ export default function LinkedInFeed() {
                         <div className="h-48 bg-gray-200 relative overflow-hidden">
                             <div
                                 className="h-full w-full bg-cover bg-center"
-                                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop')" }} // Construction/Progress
+                                style={{ backgroundImage: "url('/images/linkedin-post-1.jpg')" }}
                             ></div>
                         </div>
                         <div className="p-6 flex flex-col flex-grow">
@@ -52,7 +52,7 @@ export default function LinkedInFeed() {
 
                     {/* Post 2 */}
                     <motion.a
-                        href="https://www.linkedin.com/feed/update/urn:li:activity:7261814906009931776/"
+                        href="https://www.linkedin.com/company/balvia-properties/"
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ y: -5 }}
@@ -61,7 +61,7 @@ export default function LinkedInFeed() {
                         <div className="h-48 bg-gray-200 relative overflow-hidden">
                             <div
                                 className="h-full w-full bg-cover bg-center"
-                                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1556912173-3db9963eecc4?q=80&w=2070&auto=format&fit=crop')" }} // Kitchen/Cabinets
+                                style={{ backgroundImage: "url('/images/linkedin-post-2.png')" }}
                             ></div>
                         </div>
                         <div className="p-6 flex flex-col flex-grow">
@@ -77,7 +77,7 @@ export default function LinkedInFeed() {
 
                     {/* Post 3 */}
                     <motion.a
-                        href="https://www.linkedin.com/feed/update/urn:li:activity:7253847065502199808/"
+                        href="https://www.linkedin.com/company/balvia-properties/"
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ y: -5 }}
@@ -86,7 +86,7 @@ export default function LinkedInFeed() {
                         <div className="h-48 bg-gray-200 relative overflow-hidden">
                             <div
                                 className="h-full w-full bg-cover bg-center"
-                                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop')" }} // Drywall/Construction
+                                style={{ backgroundImage: "url('/images/linkedin-post-3.jpg')" }}
                             ></div>
                         </div>
                         <div className="p-6 flex flex-col flex-grow">
