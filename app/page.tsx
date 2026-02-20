@@ -1,11 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import LinkedInFeed from "@/components/LinkedInFeed";
+import ProjectModal from "@/components/ProjectModal";
+
+const projects = [
+  { id: 1, title: "Premier at Katy", location: "Katy, TX", image: "/projects/premier-at-katy.jpg", link: "https://premieratkaty.com/", images: ["/projects/premier-at-katy.jpg", "/projects/katy-march-2022.jpg", "/projects/katy-june-2022.jpg", "/projects/katy-dec-2022.jpg", "/projects/katy-apr-2023.jpg", "/projects/katy-sep-2023.jpg", "/projects/katy-clubhouse.jpg", "/projects/katy-exterior.jpg", "/projects/katy-aerial-sunset.jpg", "/projects/katy-pool.jpg", "/projects/katy-gym.jpg"], imageLabels: ["", "March 2022", "June 2022", "December 2022", "April 2023", "", "", "", "", "", ""], details: { units: "230 Units", style: "Garden Style", commenced: "January 2022", completed: "September 2023", status: "Fully Leased and Stabilized" }, address: "24117 Bella Dolce Ln, Katy, TX 77494" },
+  { id: 2, title: "Premier at Morton Ranch", location: "Katy, TX", image: "/projects/premier-at-morton-ranch.jpg", link: "https://premieratmortonranch.com/", status: "Under Construction - Opening in Q1 2026", images: ["/projects/premier-at-morton-ranch.jpg"] },
+  { id: 3, title: "Regalia Bella Terra", location: "Richmond, TX", image: "/projects/regalia-bella-terra.jpg", images: ["/projects/regalia-bella-terra.jpg"] },
+];
 
 export default function Home() {
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -94,13 +104,12 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { id: 1, title: "Premier at Katy", location: "Houston, TX", image: "/projects/premier-at-katy.jpg", link: "https://premieratkaty.com/" },
-              { id: 2, title: "Premier at Morton Ranch", location: "Houston, TX", image: "/projects/premier-at-morton-ranch.jpg", link: "https://premieratmortonranch.com/", status: "Under Construction - Opening in Q1 2026" },
-              { id: 3, title: "Regalia Bella Terra", location: "Houston, TX", image: "/projects/regalia-bella-terra.jpg" },
-            ].map((project) => (
+            {projects.map((project) => (
               <div key={project.id} className="group relative overflow-hidden rounded-lg shadow-md bg-white">
-                <div className="h-64 bg-gray-200 overflow-hidden relative">
+                <div
+                  className="h-64 bg-gray-200 overflow-hidden relative cursor-pointer"
+                  onClick={() => setSelectedProject(project)}
+                >
                   <div
                     className="h-full w-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
                     style={{ backgroundImage: `url('${project.image}')` }}
@@ -110,6 +119,12 @@ export default function Home() {
                       <p className="font-medium text-sm">{project.status}</p>
                     </div>
                   )}
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                    <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50 px-4 py-2 rounded-full">
+                      View Project Details
+                    </span>
+                  </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-serif font-bold mb-2">{project.title}</h3>
@@ -121,11 +136,11 @@ export default function Home() {
                       rel="noopener noreferrer"
                       className="text-secondary text-sm font-medium hover:text-primary transition-colors"
                     >
-                      View Details
+                      View Project Website
                     </a>
                   ) : (
                     <Link href="/developments" className="text-secondary text-sm font-medium hover:text-primary transition-colors">
-                      View Details
+                      View Project Website
                     </Link>
                   )}
                 </div>
@@ -162,6 +177,18 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+      {/* Project Modal */}
+      <ProjectModal
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+        title={selectedProject?.title || ''}
+        location={selectedProject?.location || ''}
+        images={selectedProject?.images || []}
+        imageLabels={selectedProject?.imageLabels}
+        details={selectedProject?.details}
+        address={selectedProject?.address}
+      />
     </div>
   );
 }

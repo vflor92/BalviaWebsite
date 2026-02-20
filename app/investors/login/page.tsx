@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
 import { motion } from 'framer-motion';
-import { Lock, Mail } from 'lucide-react';
+import { ArrowLeft, Lock, Mail } from 'lucide-react';
+import Link from 'next/link';
 
 export default function InvestorLogin() {
     const [email, setEmail] = useState('');
@@ -31,6 +32,14 @@ export default function InvestorLogin() {
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-white rounded-lg shadow-2xl p-8 md:p-12 w-full max-w-md"
             >
+                <Link
+                    href="/"
+                    className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-secondary transition-colors mb-6"
+                >
+                    <ArrowLeft size={16} />
+                    Back to Home
+                </Link>
+
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-serif font-bold text-primary mb-2">Investor Portal</h1>
                     <p className="text-gray-600">Sign in to access your account</p>

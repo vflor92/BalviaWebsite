@@ -2,17 +2,46 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import ProjectModal from "@/components/ProjectModal";
 
 const projects = [
-    { id: 1, title: "Premier at Katy", category: "Multi-Family", location: "Houston, TX", image: "/projects/premier-at-katy.jpg", link: "https://premieratkaty.com/" },
-    { id: 2, title: "Premier at Morton Ranch", category: "Multi-Family", location: "Houston, TX", image: "/projects/premier-at-morton-ranch.jpg", link: "https://premieratmortonranch.com/", status: "Under Construction - Opening in Q1 2026" },
-    { id: 3, title: "Regalia Bella Terra", category: "Multi-Family", location: "Houston, TX", image: "/projects/regalia-bella-terra.jpg" },
+    {
+        id: 1,
+        title: "Premier at Katy",
+        category: "Multi-Family",
+        location: "Katy, TX",
+        image: "/projects/premier-at-katy.jpg",
+        link: "https://premieratkaty.com/",
+        images: ["/projects/premier-at-katy.jpg", "/projects/katy-march-2022.jpg", "/projects/katy-june-2022.jpg", "/projects/katy-dec-2022.jpg", "/projects/katy-apr-2023.jpg", "/projects/katy-sep-2023.jpg", "/projects/katy-clubhouse.jpg", "/projects/katy-exterior.jpg", "/projects/katy-aerial-sunset.jpg", "/projects/katy-pool.jpg", "/projects/katy-gym.jpg"],
+        imageLabels: ["", "March 2022", "June 2022", "December 2022", "April 2023", "", "", "", "", "", ""],
+        details: { units: "230 Units", style: "Garden Style", commenced: "January 2022", completed: "September 2023", status: "Fully Leased and Stabilized" },
+        address: "24117 Bella Dolce Ln, Katy, TX 77494"
+    },
+    {
+        id: 2,
+        title: "Premier at Morton Ranch",
+        category: "Multi-Family",
+        location: "Katy, TX",
+        image: "/projects/premier-at-morton-ranch.jpg",
+        link: "https://premieratmortonranch.com/",
+        status: "Under Construction - Opening in Q1 2026",
+        images: ["/projects/premier-at-morton-ranch.jpg"],
+    },
+    {
+        id: 3,
+        title: "Regalia Bella Terra",
+        category: "Multi-Family",
+        location: "Richmond, TX",
+        image: "/projects/regalia-bella-terra.jpg",
+        images: ["/projects/regalia-bella-terra.jpg"],
+    },
 ];
 
 const categories = ["All", "Multi-Family", "Townhouse", "Mixed-Use"];
 
 export default function Developments() {
     const [activeCategory, setActiveCategory] = useState("All");
+    const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
     const filteredProjects = activeCategory === "All"
         ? projects
@@ -61,7 +90,10 @@ export default function Developments() {
                                 key={project.id}
                                 className="group rounded-lg overflow-hidden shadow-lg bg-white"
                             >
-                                <div className="h-64 overflow-hidden relative">
+                                <div
+                                    className="h-64 overflow-hidden relative cursor-pointer"
+                                    onClick={() => setSelectedProject(project)}
+                                >
                                     <div
                                         className="h-full w-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
                                         style={{ backgroundImage: `url('${project.image}')` }}
@@ -71,6 +103,12 @@ export default function Developments() {
                                             <p className="font-medium text-sm">{project.status}</p>
                                         </div>
                                     )}
+                                    {/* Hover overlay */}
+                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                                        <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50 px-4 py-2 rounded-full">
+                                            View Project Details
+                                        </span>
+                                    </div>
                                 </div>
                                 <div className="p-6">
                                     <div className="flex justify-between items-start mb-2">
@@ -78,20 +116,34 @@ export default function Developments() {
                                         <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">{project.category}</span>
                                     </div>
                                     <p className="text-gray-500 text-sm mb-4">{project.location}</p>
-                                    <a
-                                        href={project.link || "#"}
-                                        target={project.link ? "_blank" : "_self"}
-                                        rel="noopener noreferrer"
-                                        className="text-secondary font-medium text-sm hover:text-primary transition-colors inline-block"
-                                    >
-                                        View Project Details
-                                    </a>
+                                    {project.link && (
+                                        <a
+                                            href={project.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-secondary font-medium text-sm hover:text-primary transition-colors inline-block"
+                                        >
+                                            View Project Website
+                                        </a>
+                                    )}
                                 </div>
                             </motion.div>
                         ))}
                     </motion.div>
                 </div>
             </section>
+
+            {/* Project Modal */}
+            <ProjectModal
+                isOpen={!!selectedProject}
+                onClose={() => setSelectedProject(null)}
+                title={selectedProject?.title || ''}
+                location={selectedProject?.location || ''}
+                images={selectedProject?.images || []}
+                imageLabels={selectedProject?.imageLabels}
+                details={selectedProject?.details}
+                address={selectedProject?.address}
+            />
         </div>
     );
 }
