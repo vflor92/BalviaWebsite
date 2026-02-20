@@ -7,8 +7,9 @@ import { X, ChevronLeft, ChevronRight, Building2, Calendar, Layers, Home, CheckC
 interface ProjectDetails {
     units: string;
     style: string;
-    commenced: string;
+    commenced?: string;
     completed: string;
+    completedLabel?: string;
     status?: string;
 }
 
@@ -134,37 +135,39 @@ export default function ProjectModal({ isOpen, onClose, title, location, images,
                             <p className="text-gray-500 mb-6">{address || location}</p>
 
                             {details && (
-                                <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                                    <div className="bg-gray-50 rounded-lg p-4">
+                                <div className="flex flex-wrap gap-4">
+                                    <div className="bg-gray-50 rounded-lg p-4 flex-1 min-w-[140px]">
                                         <div className="flex items-center gap-2 mb-2">
                                             <Home size={18} className="text-secondary" />
                                             <span className="text-xs font-medium text-gray-500 uppercase">Units</span>
                                         </div>
                                         <p className="text-lg font-bold text-primary">{details.units}</p>
                                     </div>
-                                    <div className="bg-gray-50 rounded-lg p-4">
+                                    <div className="bg-gray-50 rounded-lg p-4 flex-1 min-w-[140px]">
                                         <div className="flex items-center gap-2 mb-2">
                                             <Building2 size={18} className="text-secondary" />
                                             <span className="text-xs font-medium text-gray-500 uppercase">Style</span>
                                         </div>
                                         <p className="text-lg font-bold text-primary">{details.style}</p>
                                     </div>
-                                    <div className="bg-gray-50 rounded-lg p-4">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Calendar size={18} className="text-secondary" />
-                                            <span className="text-xs font-medium text-gray-500 uppercase">Commenced</span>
+                                    {details.commenced && (
+                                        <div className="bg-gray-50 rounded-lg p-4 flex-1 min-w-[140px]">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <Calendar size={18} className="text-secondary" />
+                                                <span className="text-xs font-medium text-gray-500 uppercase">Commenced</span>
+                                            </div>
+                                            <p className="text-lg font-bold text-primary">{details.commenced}</p>
                                         </div>
-                                        <p className="text-lg font-bold text-primary">{details.commenced}</p>
-                                    </div>
-                                    <div className="bg-gray-50 rounded-lg p-4">
+                                    )}
+                                    <div className="bg-gray-50 rounded-lg p-4 flex-1 min-w-[140px]">
                                         <div className="flex items-center gap-2 mb-2">
                                             <Layers size={18} className="text-secondary" />
-                                            <span className="text-xs font-medium text-gray-500 uppercase">Completed</span>
+                                            <span className="text-xs font-medium text-gray-500 uppercase">{details.completedLabel || 'Completed'}</span>
                                         </div>
                                         <p className="text-lg font-bold text-primary">{details.completed}</p>
                                     </div>
                                     {details.status && (
-                                        <div className="bg-green-50 rounded-lg p-4">
+                                        <div className="bg-green-50 rounded-lg p-4 flex-1 min-w-[140px]">
                                             <div className="flex items-center gap-2 mb-2">
                                                 <CheckCircle size={18} className="text-green-600" />
                                                 <span className="text-xs font-medium text-gray-500 uppercase">Status</span>

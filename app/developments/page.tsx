@@ -7,6 +7,19 @@ import ProjectModal from "@/components/ProjectModal";
 const projects = [
     {
         id: 1,
+        title: "Premier at Morton Ranch",
+        category: "Multi-Family",
+        location: "Katy, TX",
+        image: "/projects/premier-at-morton-ranch.jpg",
+        link: "https://premieratmortonranch.com/",
+        status: "Under Construction - Opening in Q1 2026",
+        images: ["/projects/premier-at-morton-ranch.jpg", "/projects/morton-nov-2024.jpg", "/projects/morton-feb-2025.jpg", "/projects/morton-jul-2025.jpg", "/projects/morton-oct-2025.jpg", "/projects/morton-feb-2026.jpg", "/projects/morton-pool.jpg", "/projects/morton-courtyard.jpg", "/projects/morton-lobby.jpg", "/projects/morton-lounge.jpg", "/projects/morton-gym.jpg"],
+        imageLabels: ["", "November 2024", "February 2025", "July 2025", "October 2025", "February 2026", "", "", "", "", ""],
+        details: { units: "256 Units", style: "Garden Style", commenced: "November 2024", completed: "April 2026", completedLabel: "Scheduled Completion", status: "Under Construction" },
+        address: "24014 Morton Ranch Rd, Katy, TX 77493"
+    },
+    {
+        id: 2,
         title: "Premier at Katy",
         category: "Multi-Family",
         location: "Katy, TX",
@@ -18,22 +31,14 @@ const projects = [
         address: "24117 Bella Dolce Ln, Katy, TX 77494"
     },
     {
-        id: 2,
-        title: "Premier at Morton Ranch",
-        category: "Multi-Family",
-        location: "Katy, TX",
-        image: "/projects/premier-at-morton-ranch.jpg",
-        link: "https://premieratmortonranch.com/",
-        status: "Under Construction - Opening in Q1 2026",
-        images: ["/projects/premier-at-morton-ranch.jpg"],
-    },
-    {
         id: 3,
         title: "Regalia Bella Terra",
         category: "Multi-Family",
         location: "Richmond, TX",
         image: "/projects/regalia-bella-terra.jpg",
-        images: ["/projects/regalia-bella-terra.jpg"],
+        images: ["/projects/regalia-bella-terra.jpg", "/projects/regalia-clubhouse.jpg", "/projects/regalia-exterior.jpg", "/projects/regalia-aerial.jpg"],
+        details: { units: "226 Units", style: "Garden Style", completed: "November 2019", status: "Sold December 2021" },
+        address: "24151 Bella Dolce Ln, Katy, TX 77494"
     },
 ];
 
@@ -48,7 +53,7 @@ export default function Developments() {
         : projects.filter(project => project.category === activeCategory);
 
     return (
-        <div className="bg-white min-h-screen">
+        <div className="bg-white min-h-screen" >
             <section className="bg-primary py-20 text-white">
                 <div className="container mx-auto px-6 text-center">
                     <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">Our Developments</h1>
@@ -144,6 +149,6 @@ export default function Developments() {
                 details={selectedProject?.details}
                 address={selectedProject?.address}
             />
-        </div>
+        </div >
     );
 }
