@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import TeamMemberModal from "@/components/TeamMemberModal";
 
 export default function About() {
     const teamMembers = [
@@ -9,21 +11,29 @@ export default function About() {
             name: "Enrique Mesejo",
             title: "Principal & Founder",
             image: "/team/enrique-mesejo.png",
-            bio: "With over 25 years of experience in real estate development, Enrique leads the company's strategic vision and investment initiatives."
+            bio: "As a shareholder of Balvia Properties since 2018 and Managing Partner of KoRes/Remos Lending, Mr. Mesejo's expertise in financial modeling, project management, financing, due diligence studies, market trends and segmentation, data analysis, and marketing and finance strategies enhances the depth and capability of Balvia Properties' ownership team."
         },
         {
             name: "Carlos Alviarez",
             title: "Principal & Founder",
             image: "/team/carlos-alviarez.png",
-            bio: "Carlos oversees all aspects of development and operations, ensuring project excellence and operational efficiency across the portfolio."
+            bio: "As Director and shareholder of Balvia Properties since 2018, Mr. Alviarez contributes his strengths in strategic planning, business management, and financial/feasibility analysis in his role directing Balvia Properties' acquisition and development projects as well as overseeing property marketing and operations."
         },
         {
             name: "Vitaliy Florin, CPC",
             title: "Vice President",
             image: "/team/vitaliy-florin.png",
-            bio: "Vitaliy manages construction operations and project delivery, bringing extensive expertise in large-scale multifamily developments."
+            bio: "As Vice President of Development at Balvia Properties, Mr. Florin brings his expertise in owner, lender and equity investor representation, development and construction management, construction cost auditing, and construction risk management consulting. Mr. Florin has represented clients on projects totaling over $2 Billion in Hard Costs throughout the Sunbelt region."
+        },
+        {
+            name: "Tulio Rodriguez",
+            title: "Vice President",
+            image: "/team/tulio-rodriguez.jpg",
+            bio: "With 25 years of experience in management consulting, project management, and financial advisory, Mr. Rodriguez has worked for multinational companies and as an entrepreneur in the promotion of financial services and in the development, roll out, and market/product development of a variety of products and services."
         }
     ];
+
+    const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null);
 
     return (
         <div className="bg-white">
@@ -84,9 +94,9 @@ export default function About() {
             <section className="py-20">
                 <div className="container mx-auto px-6">
                     <h2 className="text-3xl font-serif font-bold mb-12 text-center text-primary">Leadership Team</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         {teamMembers.map((member, index) => (
-                            <div key={index} className="text-center">
+                            <div key={index} className="text-center cursor-pointer" onClick={() => setSelectedMember(member)}>
                                 <div className="relative h-48 w-48 mx-auto mb-6 overflow-hidden">
                                     <Image
                                         src={member.image}
@@ -102,6 +112,16 @@ export default function About() {
                     </div>
                 </div>
             </section>
+
+            {/* Team Member Modal */}
+            <TeamMemberModal
+                isOpen={!!selectedMember}
+                onClose={() => setSelectedMember(null)}
+                name={selectedMember?.name || ""}
+                title={selectedMember?.title || ""}
+                image={selectedMember?.image || ""}
+                bio={selectedMember?.bio || ""}
+            />
         </div>
     );
 }
