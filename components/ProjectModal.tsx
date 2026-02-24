@@ -107,26 +107,7 @@ export default function ProjectModal({ isOpen, onClose, title, location, images,
                                 </>
                             )}
 
-                            {/* Thumbnail strip */}
-                            {images.length > 1 && (
-                                <div className="absolute bottom-4 right-4 flex gap-2">
-                                    {images.map((img, index) => (
-                                        <button
-                                            key={index}
-                                            onClick={() => setCurrentImage(index)}
-                                            className={`w-14 h-10 rounded-md overflow-hidden border-2 transition-all ${index === currentImage
-                                                ? 'border-white shadow-lg'
-                                                : 'border-transparent opacity-70 hover:opacity-100'
-                                                }`}
-                                        >
-                                            <div
-                                                className="h-full w-full bg-cover bg-center"
-                                                style={{ backgroundImage: `url('${img}')` }}
-                                            />
-                                        </button>
-                                    ))}
-                                </div>
-                            )}
+
                         </div>
 
                         {/* Project Details */}
